@@ -12,20 +12,24 @@
             //muutuja on suurem kui 20
             //else ja seal väljastab konsool teksti: mingisugused kahtlased väärtused.
 
-            int number = 12;
-            if (number == 12)
+            //konsool loeb ainult string andmetüüpe
+            string number = Console.ReadLine();
+            //muudame stringi int andmetüübiks ja kasutame Parset
+            int numberInt = int.Parse(number);
+
+            if (numberInt == 12)
             {
                 Console.WriteLine("Number on 12");
             }
-            else if (number > 20)
+            else if (numberInt > 20)
             {
-                if (number == 32)
+                if (numberInt > 32)
                 {
-                    Console.WriteLine("Number on 32");
+                    Console.WriteLine("Sinu vanus on 33 või vanem");
                 }
                 else
                 {
-                    Console.WriteLine("See on tundmatu number");
+                    Console.WriteLine("Sinu vanus on 21 kuni 32");
                 }
             }
             else
