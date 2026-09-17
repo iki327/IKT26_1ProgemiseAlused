@@ -12,20 +12,20 @@
             //muutuja on suurem kui 20
             //else ja seal väljastab konsool teksti: mingisugused kahtlased väärtused.
 
-            int x = 12;
-            if (x == 12)
+            int number = 12;
+            if (number == 12)
             {
-                Console.WriteLine("X võrdub 12");
+                Console.WriteLine("Number on 12");
             }
-            else if (x > 20)
+            else if (number > 20)
             {
-                if (x == 32)
+                if (number == 32)
                 {
-                    Console.WriteLine("Y võrdub 32");
+                    Console.WriteLine("Number on 32");
                 }
                 else
                 {
-                    Console.WriteLine("Y on tundmatu number");
+                    Console.WriteLine("See on tundmatu number");
                 }
             }
             else
