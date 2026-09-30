@@ -1,0 +1,182 @@
+# C# `if` ja `else` Tingimuslaused: Spikker ja Juhend
+
+See juhend on mõeldud kiireks meeldetuletuseks ja abimaterjaliks C# tingimuslausete kasutamisel.
+
+---
+
+## 1. Põhisüntaks ja Struktuur
+
+Tingimuslaused kontrollivad, kas teatud tingimus on **tõene (`true`)** või **väär (`false`)**.
+
+### Lihtne `if` ja `else`
+```csharp
+int vanus = 18;
+
+if (vanus >= 18)
+{
+    Console.WriteLine("Oled täisealine.");
+}
+else
+{
+    Console.WriteLine("Oled alaealine.");
+}
+```
+
+### Mitme tingimuse kontrollimine (`else if`)
+Tingimusi kontrollitakse ülalt alla. Esimene tõene tingimus käivitatakse, ülejäänuid eiratakse.
+
+```csharp
+int punktid = 75;
+
+if (punktid >= 90)
+{
+    Console.WriteLine("Hinne: 5");
+}
+else if (punktid >= 75)
+{
+    Console.WriteLine("Hinne: 4");
+}
+else if (punktid >= 50)
+{
+    Console.WriteLine("Hinne: 3");
+}
+else
+{
+    Console.WriteLine("Hinne: 2 (Mittearvestatud)");
+}
+```
+
+---
+
+## 2. Võrdlusoperaatorid
+
+Võrdlusoperaatoreid kasutatakse kahe väärtuse võrdlemiseks. Tulemuseks on alati `bool` (`true` või `false`).
+
+| Operaator | Tähendus | Näide | Tulemus (`int x = 5`) |
+| :---: | :--- | :--- | :---: |
+| `==` | Võrdne | `x == 5` | `true` |
+| `!=` | Ei ole võrdne | `x != 3` | `true` |
+| `>` | Suurem kui | `x > 10` | `false` |
+| `<` | Väiksem kui | `x < 10` | `true` |
+| `>=` | Suurem või võrdne | `x >= 5` | `true` |
+| `<=` | Väiksem või võrdne | `x <= 4` | `false` |
+
+---
+
+## 3. Loogikaoperaatorid (Tingimuste ühendamine)
+
+| Operaator | Nimetus | Kirjeldus | Näide |
+| :---: | :---: | :--- | :--- |
+| `&&` | **JA (AND)** | Tõene vaid siis, kui **kõik** tingimused on tõesed. | `vanus >= 18 && onPilet == true` |
+| `\|\|` | **VÕI (OR)** | Tõene siis, kui **vähemalt üks** tingimus on tõene. | `vanus < 7 \|\| vanus >= 65` |
+| `!` | **EI (NOT)** | Pöörab tõeväärtuse vastupidiseks. | `!onSadu` (sama mis `onSadu == false`) |
+
+### Näide loogikaoperaatoritega:
+```csharp
+bool onPilet = true;
+int vanus = 16;
+bool onSaatja = true;
+
+// Kasutame JA (&&) ja VÕI (||) koos
+if (onPilet && (vanus >= 18 || onSaatja))
+{
+    Console.WriteLine("Pääsed üritusele sisse!");
+}
+else
+{
+    Console.WriteLine("Sissepääs keelatud.");
+}
+```
+
+---
+
+## 4. Teksti (String) Võrdlemine
+
+Tekstide võrdlemisel on suur- ja väiketähed erinevad!
+
+```csharp
+string vastus = "Jah";
+
+// Tavalise võrdluse puhul "jah" != "Jah"
+if (vastus == "jah") 
+{
+    // See plokk EI käivitu, kui vastus on "Jah"
+}
+
+// Turvaline viis (eirab suur- ja väiketähti):
+if (vastus.Equals("jah", StringComparison.OrdinalIgnoreCase))
+{
+    Console.WriteLine("Kasutaja vastas jaatavalt.");
+}
+
+// Või muutes teksti väikesteks tähtedeks:
+if (vastus.ToLower() == "jah")
+{
+    Console.WriteLine("Kasutaja vastas jaatavalt.");
+}
+```
+
+---
+
+## 5. Pesastatingimused (Nested `if`)
+
+Tingimuslauseid saab panna teiste tingimuslausete sisse.
+
+```csharp
+bool kasutajaOlemas = true;
+string parool = "1234";
+
+if (kasutajaOlemas)
+{
+    if (parool == "1234")
+    {
+        Console.WriteLine("Sisselogimine õnnestus.");
+    }
+    else
+    {
+        Console.WriteLine("Vale parool!");
+    }
+}
+else
+{
+    Console.WriteLine("Kasutajat ei leitud.");
+}
+```
+
+---
+
+## 6. Kolmeliikmeline operaator (Ternary Operator)
+
+Lühike viis lihtsa `if-else` kirjutamiseks üheks reaks.
+
+**Süntaks:** `tingimus ? väärtus_kui_tõene : väärtus_kui_väär;`
+
+```csharp
+int vanus = 20;
+
+// Tavaline viis:
+// string teade;
+// if (vanus >= 18) teade = "Täisealine";
+// else teade = "Alaealine";
+
+// Lühike viis:
+string teade = (vanus >= 18) ? "Täisealine" : "Alaealine";
+Console.WriteLine(teade);
+```
+
+---
+
+## 7. Korduma Kippuvad Vead (Kontrolli enne esitamist!)
+
+1. **`=` vs `==` segiaajamine:**
+   * `=` omistab väärtuse (`int x = 5;`).
+   * `==` võrdleb väärtusi (`if (x == 5)`).
+2. **Puuduvad loogelised sulud `{}`:**
+   * Kui `if` lausele järgneb rohkem kui üks rida koodi, peavad need olema `{}` sees!
+3. **Punktkoma `;` vale kasutamine:**
+   * `if (x > 5);` <-- Ärge pane punktkoma `if` tingimuse lõppu! See lõpetab lause enneaegselt.
+4. **Sisendi konverteerimine puudu:**
+   * `Console.ReadLine()` tagastab stringi. Kui soovid võrrelda numbreid, pead selle teisendama:
+     ```csharp
+     int vanus = int.Parse(Console.ReadLine());
+     ```
