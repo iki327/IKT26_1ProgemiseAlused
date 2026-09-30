@@ -1,9 +1,4 @@
 # C# `if` ja `else` Tingimuslaused: Spikker ja Juhend
-
-See juhend on mõeldud kiireks meeldetuletuseks ja abimaterjaliks C# tingimuslausete kasutamisel.
-
----
-
 ## 1. Põhisüntaks ja Struktuur
 
 Tingimuslaused kontrollivad, kas teatud tingimus on **tõene (`true`)** või **väär (`false`)**.
